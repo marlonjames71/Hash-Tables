@@ -57,10 +57,19 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
-        if self.storage[index] != None:
-            print(f"There is already a value here at: {index}")
-        else:
-            self.storage[index] = (key, value)
+        # if self.storage[index] != None:
+        #     print(f"There is already a value here at: {index}")
+        # else:
+        #     self.storage[index] = (key, value)
+            
+        pair = self.storage[index]
+        if pair is not None:
+            if pair.key != key:
+                print("Warning: Overwriting value")
+                pair.key = key
+                pair.value = value
+            else:
+                self.storage[index] = LinkedPair(key, value)
 
 
 
@@ -72,11 +81,22 @@ class HashTable:
 
         Fill this in.
         '''
+        # index = self._hash_mod(key)
+        # if self.storage[index] == None:
+        #     print(f"Value with given key: {key}, does not exist")
+        # else:
+        #     self.storage[index] = None
+            
+        # Get the index from hashmod
         index = self._hash_mod(key)
-        if self.storage[index] == None:
-            print(f"Value with given key: {key}, does not exist")
-        else:
+        # Check if a pair exists in the bucket with matching keys
+        if self.storage[index] is not None and self.storage[index].key == key:
+            # if so, return the value
             self.storage[index] = None
+        else:
+            print("Warning: Key does not exists")
+
+        
 
 
     def retrieve(self, key):
@@ -87,7 +107,14 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # Get the index from hashmod
+        index = self._hash_mod(key)
+        # Check if a pair exists in the bucket with matching keys
+        if self.storage[index] is not None and self.storage[index].key == key:
+            # if so, return the value
+            return self.storage[index].value
+        else:
+            return None
 
 
     def resize(self):
