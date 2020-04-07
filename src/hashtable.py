@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # '''
 # Linked List hash table key/value pair
 # '''
@@ -12,6 +13,7 @@ class HashTable:
     A hash table that with `capacity` buckets
     that accepts string keys
     '''
+    
     def __init__(self, capacity):
         self.capacity = capacity  # Number of buckets in the hash table
         self.storage = [None] * capacity
@@ -54,7 +56,11 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+        if self.storage[index] != None:
+            print(f"There is already a value here at: {index}")
+        else:
+            self.storage[index] = (key, value)
 
 
 
@@ -66,7 +72,11 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+        if self.storage[index] == None:
+            print(f"Value with given key: {key}, does not exist")
+        else:
+            self.storage[index] = None
 
 
     def retrieve(self, key):
@@ -95,8 +105,8 @@ if __name__ == "__main__":
     ht = HashTable(2)
 
     ht.insert("line_1", "Tiny hash table")
-    ht.insert("line_2", "Filled beyond capacity")
-    ht.insert("line_3", "Linked list saves the day!")
+    # ht.insert("line_2", "Filled beyond capacity")
+    # ht.insert("line_3", "Linked list saves the day!")
 
     print("")
 
