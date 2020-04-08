@@ -64,12 +64,25 @@ class HashTable:
             
         pair = self.storage[index]
         if pair is not None:
+<<<<<<< HEAD
+            lastNode = None
+            while pair is not None:
+                if pair.key == key:
+                    pair.value = value
+                    return
+                lastNode = pair
+                pair = pair.next
+            lastNode.next = LinkedPair(key, value)
+        else:
+            self.storage[index] = LinkedPair(key, value)
+=======
             if pair.key != key:
                 print("Warning: Overwriting value")
                 pair.key = key
                 pair.value = value
             else:
                 self.storage[index] = LinkedPair(key, value)
+>>>>>>> master
 
 
 
