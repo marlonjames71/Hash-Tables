@@ -64,7 +64,6 @@ class HashTable:
             
         pair = self.storage[index]
         if pair is not None:
-<<<<<<< HEAD
             lastNode = None
             while pair is not None:
                 if pair.key == key:
@@ -75,14 +74,6 @@ class HashTable:
             lastNode.next = LinkedPair(key, value)
         else:
             self.storage[index] = LinkedPair(key, value)
-=======
-            if pair.key != key:
-                print("Warning: Overwriting value")
-                pair.key = key
-                pair.value = value
-            else:
-                self.storage[index] = LinkedPair(key, value)
->>>>>>> master
 
 
 
@@ -102,12 +93,29 @@ class HashTable:
             
         # Get the index from hashmod
         index = self._hash_mod(key)
+        node = self.storage[index]
         # Check if a pair exists in the bucket with matching keys
-        if self.storage[index] is not None and self.storage[index].key == key:
-            # if so, return the value
-            self.storage[index] = None
-        else:
-            print("Warning: Key does not exists")
+        prevNode = None
+        if node:
+            if node.key == key:
+                node = node.next
+                return
+            else:
+                prevNode = node
+                node = node.next
+            while node:
+                if node.key == key:
+                    prevNode.next = node.next
+                    return
+                prevNode = node
+                node = node.next
+        print("Key does not exist!")
+        
+        # if self.storage[index] is not None and self.storage[index].key == key:
+        #     # if so, return the value
+        #     self.storage[index] = None
+        # else:
+        #     print("Warning: Key does not exists")
 
         
 
